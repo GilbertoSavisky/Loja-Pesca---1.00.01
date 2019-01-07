@@ -1,0 +1,23 @@
+unit untTratarBotoes;
+
+interface
+Uses
+  Forms, Buttons;
+procedure tratarBotoes(form : TForm);
+
+implementation
+
+uses UntFrmClientes;
+
+
+procedure tratarBotoes(form : TForm);
+
+    begin
+        frmClientes.btInserir:=not frmClientes.btInserir.enabled;
+        frmClientes.btAlterar.enabled:=not frmClientes.btAlterar.enabled;
+        frmClientes.btExcluir.enabled:=not frmClientes.btExcluir.enabled;
+        frmClientes.btGravar.enabled:=not frmClientes.btGravar.enabled;
+        frmClientes.btCancelar.enabled:=not frmClientes.btCancelar.enabled;
+    end;
+end.
+

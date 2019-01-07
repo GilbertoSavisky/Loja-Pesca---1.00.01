@@ -1,0 +1,74 @@
+object frmPesquisa: TfrmPesquisa
+  Left = 581
+  Top = 341
+  Width = 681
+  Height = 297
+  Caption = 'Pesquisando...'
+  Color = clBtnFace
+  Font.Charset = ANSI_CHARSET
+  Font.Color = clBlack
+  Font.Height = -16
+  Font.Name = 'Microsoft Sans Serif'
+  Font.Style = [fsBold]
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 20
+  object DBGrid1: TDBGrid
+    Left = 8
+    Top = 80
+    Width = 641
+    Height = 120
+    DataSource = DM.DataSourcePesquisa
+    TabOrder = 0
+    TitleFont.Charset = ANSI_CHARSET
+    TitleFont.Color = clBlack
+    TitleFont.Height = -16
+    TitleFont.Name = 'Microsoft Sans Serif'
+    TitleFont.Style = [fsBold]
+    OnDblClick = DBGrid1DblClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'CDPRODUTO'
+        ReadOnly = True
+        Title.Caption = 'C'#243'digo'
+        Width = 100
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'DCPRODUTO'
+        ReadOnly = True
+        Title.Caption = 'Produto'
+        Width = 400
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VLPRODUTO'
+        ReadOnly = True
+        Title.Caption = 'Valor'
+        Width = 100
+        Visible = True
+      end>
+  end
+  object edPesquisa: TEdit
+    Left = 8
+    Top = 32
+    Width = 641
+    Height = 28
+    CharCase = ecUpperCase
+    TabOrder = 1
+    OnChange = edPesquisaChange
+    OnKeyDown = edPesquisaKeyDown
+  end
+  object btSair: TBitBtn
+    Left = 560
+    Top = 208
+    Width = 90
+    Height = 35
+    Caption = 'Sair'
+    TabOrder = 2
+    OnClick = btSairClick
+  end
+end

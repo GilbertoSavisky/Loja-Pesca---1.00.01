@@ -1,0 +1,189 @@
+unit UntDM;
+
+interface
+
+uses
+    Dialogs,SysUtils, Classes, DBXpress, DB, SqlExpr, DBClient, SimpleDS;
+
+type
+    TDM = class(TDataModule)
+        SQLConnection1: TSQLConnection;
+    sdFornecedores: TSimpleDataSet;
+        DataSourceFornecedores: TDataSource;
+    sdClientes: TSimpleDataSet;
+        DataSourceClientes: TDataSource;
+        DataSourceVendedores: TDataSource;
+        DataSourceProdutos: TDataSource;
+    sdVendedores: TSimpleDataSet;
+    sdProdutos: TSimpleDataSet;
+    sdProdutosCDPRODUTO: TIntegerField;
+    sdProdutosDCPRODUTO: TStringField;
+    sdProdutosVLPRODUTO: TFMTBCDField;
+    sdProdutosQTESTOQUE: TFMTBCDField;
+    sdProdutosQTMINIMA: TFMTBCDField;
+    sdProdutosdescricaofornecedor: TStringField;
+    sdProdutosCDFORNECEDOR: TIntegerField;
+    sdFornecedoresCDFORNECEDOR: TIntegerField;
+    sdFornecedoresDCFORNECEDOR: TStringField;
+    sdFornecedoresENDERECO: TStringField;
+    sdFornecedoresBAIRRO: TStringField;
+    sdFornecedoresCIDADE: TStringField;
+    sdFornecedoresTELEFONE: TStringField;
+    sdFornecedoresCEP: TStringField;
+    sdClientesCDCLIENTE: TIntegerField;
+    sdClientesDCCLIENTE: TStringField;
+    sdClientesENDERECO: TStringField;
+    sdClientesBAIRRO: TStringField;
+    sdClientesCIDADE: TStringField;
+    sdClientesTELEFONE: TStringField;
+    sdClientesCEP: TStringField;
+    sdVendedoresCDVENDEDOR: TIntegerField;
+    sdVendedoresDCVENDEDOR: TStringField;
+    sdProdutosSugestaoCompra: TFloatField;
+        DataSourceVendas: TDataSource;
+    sdVendas: TSimpleDataSet;
+    sdItens: TSimpleDataSet;
+        DataSourceItens: TDataSource;
+        DataSourcePesquisa: TDataSource;
+    sdPesquisa: TSimpleDataSet;
+    sdClientesEMAIL: TStringField;
+    sdItensNRVENDA: TIntegerField;
+    sdItensNRITEM: TIntegerField;
+    sdItensCDPRODUTO: TIntegerField;
+    sdItensQTVENDA: TFMTBCDField;
+    sdItensVLPRODUTO: TFMTBCDField;
+    sdVendasNRVENDA: TIntegerField;
+    sdVendasDTVENDA: TDateField;
+    sdVendasCDCLIENTE: TIntegerField;
+    sdVendasCDVENDEDOR: TIntegerField;
+    sdItensVLTOTALPRODUTO: TFMTBCDField;
+    sdClientesCPF: TStringField;
+    sdVendasVLTOTALNOTA: TFMTBCDField;
+    sdItensTemp: TClientDataSet;
+    sdItensTempnrItem: TIntegerField;
+    sdItensTempcdProduto: TIntegerField;
+    sdItensTempqtde: TFloatField;
+    sdItensTempvlProduto: TFloatField;
+    sdItensTemptotalProduto: TFloatField;
+    DataSourceItensTemp: TDataSource;
+    sdItensTemptotalNota: TAggregateField;
+    sdItensTempProduto: TStringField;
+        procedure sdFornecedoresAfterDelete(DataSet: TDataSet);
+        procedure sdFornecedoresAfterPost(DataSet: TDataSet);
+        procedure sdClientesAfterDelete(DataSet: TDataSet);
+        procedure sdClientesAfterPost(DataSet: TDataSet);
+        procedure sdVendedoresAfterDelete(DataSet: TDataSet);
+        procedure sdVendedoresAfterPost(DataSet: TDataSet);
+        procedure sdProdutosAfterDelete(DataSet: TDataSet);
+        procedure sdProdutosAfterPost(DataSet: TDataSet);
+        procedure sdProdutosCalcFields(DataSet: TDataSet);
+        procedure sdVendasAfterDelete(DataSet: TDataSet);
+        procedure sdVendasAfterPost(DataSet: TDataSet);
+        procedure sdItensAfterPost(DataSet: TDataSet);
+        procedure sdItensAfterDelete(DataSet: TDataSet);
+        procedure sdItensCalcFields(DataSet: TDataSet);
+    procedure sdItensTempAfterDelete(DataSet: TDataSet);
+
+    private
+        { Private declarations }
+    public
+        { Public declarations }
+    end;
+
+var
+    DM: TDM;
+
+implementation
+
+uses untControlador;
+
+{$R *.dfm}
+
+procedure TDM.sdFornecedoresAfterDelete(DataSet: TDataSet);
+begin
+    DM.sdFornecedores.ApplyUpdates(0);
+end;
+
+procedure TDM.sdFornecedoresAfterPost(DataSet: TDataSet);
+begin
+    Dm.sdFornecedores.ApplyUpdates(0);
+end;
+
+procedure TDM.sdClientesAfterDelete(DataSet: TDataSet);
+begin
+    Dm.sdClientes.ApplyUpdates(0);
+end;
+
+procedure TDM.sdClientesAfterPost(DataSet: TDataSet);
+begin
+    Dm.sdClientes.ApplyUpdates(0);
+end;
+
+procedure TDM.sdVendedoresAfterDelete(DataSet: TDataSet);
+begin
+    DM.sdVendedores.ApplyUpdates(0);
+end;
+
+procedure TDM.sdVendedoresAfterPost(DataSet: TDataSet);
+begin
+    dm.sdVendedores.ApplyUpdates(0);
+end;
+
+procedure TDM.sdProdutosAfterDelete(DataSet: TDataSet);
+begin
+    dm.sdProdutos.ApplyUpdates(0);
+end;
+
+procedure TDM.sdProdutosAfterPost(DataSet: TDataSet);
+begin
+    DM.sdProdutos.ApplyUpdates(0);
+end;
+
+procedure TDM.sdProdutosCalcFields(DataSet: TDataSet);
+begin
+    if DM.sdProdutos.FieldByName('QTESTOQUE').AsFloat <
+        DM.sdProdutos.FieldByName('QTMINIMA').AsFloat then
+    begin
+        DM.sdProdutos.FieldByName('SugestaoCompra').AsFloat :=
+            DM.sdProdutos.FieldByName('QTMINIMA').AsFloat -
+            DM.sdProdutos.FieldByName('QTESTOQUE').AsFloat;
+    end;
+
+end;
+
+procedure TDM.sdVendasAfterDelete(DataSet: TDataSet);
+begin
+    Dm.sdVendas.ApplyUpdates(0);
+end;
+
+procedure TDM.sdVendasAfterPost(DataSet: TDataSet);
+begin
+    Dm.sdVendas.ApplyUpdates(0);
+end;
+
+procedure TDM.sdItensAfterPost(DataSet: TDataSet);
+begin
+    Dm.sdItens.ApplyUpdates(0);
+end;
+
+procedure TDM.sdItensAfterDelete(DataSet: TDataSet);
+begin
+    Dm.sdItens.ApplyUpdates(0);
+end;
+
+procedure TDM.sdItensCalcFields(DataSet: TDataSet);
+begin
+    DM.sdItens.FieldByName('VLTOTAL').asfloat :=
+        DM.sdItens.FieldByName('QTVENDA').asfloat *
+        DM.sdItens.FieldByName('VLPRODUTO').asfloat;
+
+
+end;
+
+procedure TDM.sdItensTempAfterDelete(DataSet: TDataSet);
+begin
+    atualizaVlNota();
+end;
+
+end.
+

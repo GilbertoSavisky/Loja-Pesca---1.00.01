@@ -1,0 +1,63 @@
+Hello,
+this is my Glyph (button bitmap) collection, sampled from:
+ 
+OUIN-GLY.ZIP   (found at the Delphi Super Page)
+
+BA1.ZIP        (found at Torry's Pages)
+
+               Find Torry's and the DSP URL at the "WWW sites"
+               page of my Website "Richey's DELPHI-BOX" at
+               http://Inner-Smile.com !
+
+ICONS.ZIP      (sent to me by Charles Urbina /
+               charlesu@solucionsoftwares.com)
+
+NEWICONS.ZIP   (by Michael A. Esser / CIS 71573,2467)
+
+and most of the glyphs originally contained in Delphi's
+Images\Buttons directory.
+
+The Icon collections have been converted to Glyph-styled
+bitmaps with my utility Resource-Grabber *) which you can
+find on my download page (http://Inner-Smile.com)
+
+The Resource-Grabber
+--------------------
+Get 1000s of images within minutes!
+This is really a great utility for developers: it analyzes
+the files on your computer and extracts all bitmaps, glyphs
+(button images), icons, cursors, JPG/JPEG images, video clips,
+WAVE and RMI sound files, forms, strings, fonts and much other
+interesting stuff it finds inside these files to a directory
+of your choice.
+Even scanning of multiple disks is supported which typically
+brings 5-15,000 high-quality images! Forget painting all that
+stuff by yourself; forget hours of searching for Windows-compatible
+button layouts... simply use the images that are already on your
+computer! An integrated Image Organizer Tool will help you to
+categorize your image collection. Now also comes with an Internet
+Newsgroup Scanner (download images/videos/sounds/.. while you sleep!)
+and a Resource Browser which will allow you to manually explore the
+files on your PC.
+For more information, please visit http://Inner-Smile.com/dl_res.htm.
+
+
+QUESTION TO YOU - PLEASE READ:
+I think that over 9452 glyphs are a bit too much just to be
+scrolled through and to find exactly what you need in a 
+reasonable amount of time... Thus, I'm searching for a nice
+person who would organize the icons into a number of directories
+named after several categories (e.g., Documents, Devices,.. -
+but shouldn't be more than 10-15 to ensure easy overview of
+available categories). If you'd like to do that, please ask
+by email if no one else is already working on it and when you
+think you'll be finished.
+This would really be of great help for other "Delphians",
+be sure to be donated in this file and reveiving a golden
+star in the book of books...
+
+You can contact me by email at Support@Inner-Smile.com or
+(if the above doesn't work) r.fellner@bigfoot.com
+
+Richey Fellner
+(Delphi-Box)

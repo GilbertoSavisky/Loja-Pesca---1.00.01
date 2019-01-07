@@ -1,0 +1,187 @@
+unit UntFrmClientes;
+
+interface
+
+uses
+    Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+    Dialogs, ExtCtrls, DBCtrls, Grids, DBGrids, StdCtrls, Buttons, Mask, DB,
+    Menus, ComCtrls;
+
+type
+    TfrmClientes = class(TForm)
+        PageControl1: TPageControl;
+        TabSheet1: TTabSheet;
+        TabSheet2: TTabSheet;
+        Label1: TLabel;
+        Label2: TLabel;
+        Label3: TLabel;
+        Label4: TLabel;
+        Label5: TLabel;
+        Label6: TLabel;
+        Label7: TLabel;
+        Label8: TLabel;
+        edCodigo: TDBEdit;
+        edNome: TDBEdit;
+        edEndereco: TDBEdit;
+        edCidade: TDBEdit;
+        edBairro: TDBEdit;
+        edTelefone: TDBEdit;
+        edCep: TDBEdit;
+        DBEdit1: TDBEdit;
+        Panel1: TPanel;
+        Label9: TLabel;
+        Label10: TLabel;
+        edCPF: TDBEdit;
+        SpeedButton1: TSpeedButton;
+    SpeedButton7: TSpeedButton;
+    SpeedButton6: TSpeedButton;
+    SpeedButton5: TSpeedButton;
+    SpeedButton4: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    btInserir: TSpeedButton;
+    btAlterar: TSpeedButton;
+    btExcluir: TSpeedButton;
+    btGravar: TSpeedButton;
+    btCancelar: TSpeedButton;
+    btSair: TSpeedButton;
+        procedure btSairClick(Sender: TObject);
+        procedure btInserirClick(Sender: TObject);
+        procedure btAlterarClick(Sender: TObject);
+        procedure btExcluirClick(Sender: TObject);
+        procedure btGravarClick(Sender: TObject);
+        procedure btCancelarClick(Sender: TObject);
+        procedure btPrimeiroClick(Sender: TObject);
+        procedure btAnteriorClick(Sender: TObject);
+        procedure btProximoClick(Sender: TObject);
+        procedure btUltimoClick(Sender: TObject);
+        procedure FormClose(Sender: TObject; var Action: TCloseAction);
+        procedure FormActivate(Sender: TObject);
+        procedure edCpfExit(Sender: TObject);
+        procedure SpeedButton1Click(Sender: TObject);
+
+    private
+        { Private declarations }
+    public
+        { Public declarations }
+    end;
+
+var
+    frmClientes: TfrmClientes;
+
+implementation
+
+uses UntDM, untTratarBotoes, untControlador, UntPesquisa;
+
+{$R *.dfm}
+
+procedure TfrmClientes.btSairClick(Sender: TObject);
+begin
+    tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    //DM.sdClientes.Cancel;
+    Close;
+end;
+
+procedure TfrmClientes.btInserirClick(Sender: TObject);
+var
+    prox: integer;
+begin
+    tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    //DM.sdClientes.Last;
+    //prox := DM.sdClientes.fieldbyname('cdcliente').AsInteger + 1;
+    //DM.sdClientes.Append;
+    //DM.sdClientes.FieldByName('cdcliente').AsInteger := prox;
+    trataEdits(frmClientes, btInserir);
+end;
+
+procedure TfrmClientes.btAlterarClick(Sender: TObject);
+begin
+    tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    //DM.sdClientes.Edit;
+   trataEdits(frmClientes, btAlterar);
+end;
+procedure TfrmClientes.btExcluirClick(Sender: TObject);
+begin
+    //tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    if MessageBox(0, 'Deseja realmente excluir?', 'Excluindo...', mb_YesNo) =
+        idYes then
+        DM.sdClientes.Delete;
+end;
+
+procedure TfrmClientes.btGravarClick(Sender: TObject);
+begin
+    tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    if DM.sdClientes.State in [dsEdit, dsInsert] then
+        DM.sdClientes.Post;
+    trataEdits(frmClientes, btGravar);
+end;
+
+procedure TfrmClientes.btCancelarClick(Sender: TObject);
+var
+    i : integer;
+begin
+    tratarBotoes(btInserir, btAlterar, btExcluir, btGravar, btCancelar);
+    DM.sdClientes.Cancel;
+    trataEdits(frmClientes, btCancelar);
+end;
+
+procedure TfrmClientes.btPrimeiroClick(Sender: TObject);
+begin
+    DM.sdClientes.First;
+end;
+
+procedure TfrmClientes.btAnteriorClick(Sender: TObject);
+begin
+    DM.sdClientes.Prior;
+end;
+
+procedure TfrmClientes.btProximoClick(Sender: TObject);
+begin
+    DM.sdClientes.Next;
+end;
+
+procedure TfrmClientes.btUltimoClick(Sender: TObject);
+begin
+    DM.sdClientes.Last;
+end;
+
+procedure TfrmClientes.FormClose(Sender: TObject;
+    var Action: TCloseAction);
+begin
+    frmClientes := nil;
+    Action := caFree;
+
+end;
+
+procedure TfrmClientes.FormActivate(Sender: TObject);
+begin
+    WindowState := wsMaximized;
+end;
+
+procedure TfrmClientes.edCpfExit(Sender: TObject);
+begin
+    if (Length(edCPF.Text) > 10) then
+    begin
+        if IsValidCPF(edCpf.Text) = true then
+            ShowMessage('Verdadeiro')
+        else
+            ShowMessage('Falso');
+    end;
+end;
+
+procedure TfrmClientes.SpeedButton1Click(Sender: TObject);
+begin
+    Application.CreateForm(TfrmPesquisa, frmPesquisa);
+    frmPesquisa.Show;
+    frmPesquisa.edPesquisa.SetFocus;
+    frmPesquisa.DBGrid1.Columns[0].FieldName := 'CDCLIENTE';
+    frmPesquisa.DBGrid1.Columns[1].FieldName := 'DCCLIENTE';
+    frmPesquisa.DBGrid1.Columns[2].FieldName := 'CPF';
+    frmPesquisa.DBGrid1.Columns[1].Title.Caption := 'Nome';
+    frmPesquisa.DBGrid1.Columns[2].Title.Caption := 'CPF';
+    frmPesquisa.setForm('clientes', 'dccliente');
+    pesquisar('clientes', 'dccliente');
+end;
+
+end.
+

@@ -1,0 +1,104 @@
+unit UntPesquisa;
+
+interface
+
+uses
+    Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+    Dialogs, StdCtrls, Buttons, Grids, DBGrids;
+
+type
+    TfrmPesquisa = class(TForm)
+        DBGrid1: TDBGrid;
+        edPesquisa: TEdit;
+        btSair: TBitBtn;
+        procedure btSairClick(Sender: TObject);
+        procedure edPesquisaChange(Sender: TObject);
+        procedure DBGrid1DblClick(Sender: TObject);
+        procedure edPesquisaKeyDown(Sender: TObject; var Key: Word;
+            Shift: TShiftState);
+        //procedure DBGrid1DrawColumnCell(Sender: TObject; const Rect: TRect;
+        //    DataCol: Integer; Column: TColumn; State: TGridDrawState);
+        procedure setForm (tabela : String; campo : String);
+
+    private
+        { Private declarations }
+    public
+        { Public declarations }
+    end;
+
+var
+    frmPesquisa: TfrmPesquisa;
+    p_tabela, p_campo : String;
+
+implementation
+
+uses UntDM, untVendasCaixa, DB, untControlador;
+
+{$R *.dfm}
+
+procedure TfrmPesquisa.btSairClick(Sender: TObject);
+begin
+    Close;
+end;
+
+procedure TfrmPesquisa.edPesquisaChange(Sender: TObject);
+begin
+    pesquisar(p_tabela, p_campo);
+end;
+
+procedure TfrmPesquisa.DBGrid1DblClick(Sender: TObject);
+begin
+    //pesquisar(TfrmPesquisa, frmPesquisa);
+end;
+
+procedure TfrmPesquisa.edPesquisaKeyDown(Sender: TObject; var Key: Word;
+    Shift: TShiftState);
+begin
+    if Key = vk_return then
+    begin
+        DBGrid1DblClick(Sender);
+    end;
+end;
+
+{procedure TfrmPesquisa.DBGrid1DrawColumnCell(Sender: TObject;
+    const Rect: TRect; DataCol: Integer; Column: TColumn;
+    State: TGridDrawState);
+begin
+    with DBGrid1 do
+    begin
+        if odd(DM.sdPesquisa.RecNo) then
+        begin
+            //muda cor itens da linha impar
+                //DBGrid1.Canvas.Font.Color := clBlack;
+                //muda cor linha impar
+                //DBGrid1.Canvas.Brush.Color := clBlack;
+        end
+        else
+        begin
+            //muda cor itens da linha par
+            //DBGrid1.Canvas.Font.Color := clMenuHighlight;
+            //muda cor linha par
+            //DBGrid1.Canvas.Brush.Color := cl3DLight;
+        end;
+
+        if (gdSelected in state) then
+            //muda cor  item selecionado
+            //DBGrid1.Canvas.Font.Color := clBlack
+        else
+            //muda cor de todos itens não selecionados
+            //DBGrid1.Canvas.Font.Color := clWhite;
+
+            DBGrid1.Canvas.FillRect(Rect);
+        DBGrid1.DefaultDrawColumnCell(Rect, DataCol, Column, State);
+
+    end;
+end;}
+
+procedure TfrmPesquisa.setForm(tabela : String; campo : String);
+begin
+    p_tabela := tabela;
+    p_campo := campo;
+end;
+
+end.
+

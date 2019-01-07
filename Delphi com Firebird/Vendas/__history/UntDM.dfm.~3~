@@ -1,0 +1,509 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 764
+  Width = 491
+  object SQLConnection1: TSQLConnection
+    ConnectionName = 'DBVENDAS'
+    DriverName = 'Firebird'
+    GetDriverFunc = 'getSQLDriverINTERBASE'
+    LibraryName = 'dbxfb.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      
+        'Database=C:\Users\gilbe\Developer\Programa'#231#227'o\Nova pasta\DElphi_' +
+        '2015\Teste\Banco\VENDAS.GDB'
+      'User_Name=SYSDBA')
+    VendorLib = 'fbclient.dll'
+    Left = 72
+    Top = 24
+  end
+  object sdFornecedores: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.CommandText = 'SELECT * FROM FORNECEDORES'
+    DataSet.DataSource = DataSourceFornecedores
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    FieldDefs = <
+      item
+        Name = 'CDFORNECEDOR'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'DCFORNECEDOR'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'ENDERECO'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'BAIRRO'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'CIDADE'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'TELEFONE'
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'CEP'
+        DataType = ftString
+        Size = 8
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    IndexName = 'DEFAULT_ORDER'
+    Params = <>
+    StoreDefs = True
+    AfterPost = sdFornecedoresAfterPost
+    AfterDelete = sdFornecedoresAfterDelete
+    Left = 72
+    Top = 104
+    object sdFornecedoresCDFORNECEDOR: TIntegerField
+      FieldName = 'CDFORNECEDOR'
+      Required = True
+    end
+    object sdFornecedoresDCFORNECEDOR: TStringField
+      FieldName = 'DCFORNECEDOR'
+      Size = 30
+    end
+    object sdFornecedoresENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 40
+    end
+    object sdFornecedoresBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+    end
+    object sdFornecedoresCIDADE: TStringField
+      FieldName = 'CIDADE'
+    end
+    object sdFornecedoresTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      EditMask = '(99)9999-9999;0;_'
+      Size = 10
+    end
+    object sdFornecedoresCEP: TStringField
+      FieldName = 'CEP'
+      EditMask = '99.999-999;0;_'
+      Size = 8
+    end
+  end
+  object DataSourceFornecedores: TDataSource
+    AutoEdit = False
+    DataSet = sdFornecedores
+    Left = 216
+    Top = 104
+  end
+  object sdClientes: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.CommandText = 'SELECT * FROM CLIENTES'
+    DataSet.DataSource = DataSourceClientes
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    Params = <>
+    AfterPost = sdClientesAfterPost
+    AfterDelete = sdClientesAfterDelete
+    Left = 69
+    Top = 181
+    object sdClientesCDCLIENTE: TIntegerField
+      FieldName = 'CDCLIENTE'
+      Required = True
+    end
+    object sdClientesDCCLIENTE: TStringField
+      FieldName = 'DCCLIENTE'
+      Size = 30
+    end
+    object sdClientesENDERECO: TStringField
+      FieldName = 'ENDERECO'
+      Size = 40
+    end
+    object sdClientesBAIRRO: TStringField
+      FieldName = 'BAIRRO'
+    end
+    object sdClientesCIDADE: TStringField
+      FieldName = 'CIDADE'
+    end
+    object sdClientesTELEFONE: TStringField
+      FieldName = 'TELEFONE'
+      EditMask = '(99)9999-9999;0;_'
+      Size = 10
+    end
+    object sdClientesCEP: TStringField
+      FieldName = 'CEP'
+      EditMask = '99.999-000;0;_'
+      Size = 8
+    end
+    object sdClientesEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 150
+    end
+    object sdClientesCPF: TStringField
+      FieldName = 'CPF'
+      Size = 12
+    end
+  end
+  object DataSourceClientes: TDataSource
+    AutoEdit = False
+    DataSet = sdClientes
+    Left = 215
+    Top = 181
+  end
+  object DataSourceVendedores: TDataSource
+    AutoEdit = False
+    DataSet = sdVendedores
+    Left = 224
+    Top = 272
+  end
+  object DataSourceProdutos: TDataSource
+    DataSet = sdProdutos
+    Left = 226
+    Top = 365
+  end
+  object sdVendedores: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.CommandText = 'SELECT * FROM VENDEDORES'
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    Params = <>
+    AfterPost = sdVendedoresAfterPost
+    AfterDelete = sdVendedoresAfterDelete
+    Left = 72
+    Top = 274
+    object sdVendedoresCDVENDEDOR: TIntegerField
+      FieldName = 'CDVENDEDOR'
+      Required = True
+    end
+    object sdVendedoresDCVENDEDOR: TStringField
+      FieldName = 'DCVENDEDOR'
+      Size = 30
+    end
+  end
+  object sdProdutos: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.CommandText = 'select * from PRODUTOS'
+    DataSet.DataSource = DataSourceProdutos
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    Params = <>
+    AfterPost = sdProdutosAfterPost
+    AfterDelete = sdProdutosAfterDelete
+    OnCalcFields = sdProdutosCalcFields
+    Left = 80
+    Top = 369
+    object sdProdutosCDPRODUTO: TIntegerField
+      FieldName = 'CDPRODUTO'
+      Required = True
+    end
+    object sdProdutosDCPRODUTO: TStringField
+      DisplayWidth = 30
+      FieldName = 'DCPRODUTO'
+      Size = 150
+    end
+    object sdProdutosVLPRODUTO: TFMTBCDField
+      FieldName = 'VLPRODUTO'
+      Precision = 15
+      Size = 2
+    end
+    object sdProdutosQTESTOQUE: TFMTBCDField
+      FieldName = 'QTESTOQUE'
+      Precision = 15
+      Size = 2
+    end
+    object sdProdutosQTMINIMA: TFMTBCDField
+      FieldName = 'QTMINIMA'
+      Precision = 15
+      Size = 2
+    end
+    object sdProdutosdescricaofornecedor: TStringField
+      FieldKind = fkLookup
+      FieldName = 'descricaofornecedor'
+      LookupDataSet = sdFornecedores
+      LookupKeyFields = 'CDFORNECEDOR'
+      LookupResultField = 'DCFORNECEDOR'
+      KeyFields = 'CDFORNECEDOR'
+      Size = 30
+      Lookup = True
+    end
+    object sdProdutosCDFORNECEDOR: TIntegerField
+      FieldName = 'CDFORNECEDOR'
+      Required = True
+    end
+    object sdProdutosSugestaoCompra: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'SugestaoCompra'
+      Calculated = True
+    end
+  end
+  object DataSourceVendas: TDataSource
+    DataSet = sdVendas
+    Left = 240
+    Top = 448
+  end
+  object sdVendas: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.CommandText = 'select * from VENDAS'
+    DataSet.DataSource = DataSourceVendas
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    FieldDefs = <
+      item
+        Name = 'NRVENDA'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'DTVENDA'
+        Attributes = [faRequired]
+        DataType = ftDate
+      end
+      item
+        Name = 'CDCLIENTE'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'CDVENDEDOR'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'VLTOTALNOTA'
+        Attributes = [faRequired]
+        DataType = ftFMTBcd
+        Precision = 15
+        Size = 2
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    Params = <>
+    StoreDefs = True
+    AfterPost = sdVendasAfterPost
+    AfterDelete = sdVendasAfterDelete
+    Left = 72
+    Top = 448
+    object sdVendasNRVENDA: TIntegerField
+      FieldName = 'NRVENDA'
+      Required = True
+    end
+    object sdVendasDTVENDA: TDateField
+      FieldName = 'DTVENDA'
+      Required = True
+    end
+    object sdVendasCDCLIENTE: TIntegerField
+      FieldName = 'CDCLIENTE'
+      Required = True
+    end
+    object sdVendasCDVENDEDOR: TIntegerField
+      FieldName = 'CDVENDEDOR'
+      Required = True
+    end
+    object sdVendasVLTOTALNOTA: TFMTBCDField
+      AutoGenerateValue = arAutoInc
+      FieldKind = fkInternalCalc
+      FieldName = 'VLTOTALNOTA'
+      EditFormat = '0.00'
+      Precision = 15
+      Size = 2
+    end
+  end
+  object sdItens: TSimpleDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Connection = SQLConnection1
+    DataSet.CommandText = 'SELECT * FROM ITENS WHERE NRVENDA = :NRVENDA'
+    DataSet.DataSource = DataSourceItens
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <
+      item
+        DataType = ftInteger
+        Name = 'NRVENDA'
+        ParamType = ptInput
+        Value = 1
+      end>
+    FieldDefs = <
+      item
+        Name = 'NRVENDA'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'NRITEM'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'CDPRODUTO'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'QTVENDA'
+        Attributes = [faRequired]
+        DataType = ftFMTBcd
+        Precision = 15
+        Size = 2
+      end
+      item
+        Name = 'VLPRODUTO'
+        Attributes = [faRequired]
+        DataType = ftFMTBcd
+        Precision = 15
+        Size = 2
+      end
+      item
+        Name = 'VLTOTALPRODUTO'
+        Attributes = [faRequired]
+        DataType = ftFMTBcd
+        Precision = 15
+        Size = 2
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end>
+    IndexFieldNames = 'NRVENDA'
+    MasterFields = 'NRVENDA'
+    MasterSource = DataSourceVendas
+    PacketRecords = 0
+    Params = <>
+    StoreDefs = True
+    AfterPost = sdItensAfterPost
+    AfterDelete = sdItensAfterDelete
+    OnCalcFields = sdItensCalcFields
+    Left = 72
+    Top = 512
+    object sdItensNRVENDA: TIntegerField
+      FieldName = 'NRVENDA'
+      Required = True
+    end
+    object sdItensNRITEM: TIntegerField
+      FieldName = 'NRITEM'
+      Required = True
+      DisplayFormat = '000'
+    end
+    object sdItensCDPRODUTO: TIntegerField
+      FieldName = 'CDPRODUTO'
+      Required = True
+    end
+    object sdItensQTVENDA: TFMTBCDField
+      FieldName = 'QTVENDA'
+      Required = True
+      DisplayFormat = '00'
+      Precision = 15
+      Size = 2
+    end
+    object sdItensVLPRODUTO: TFMTBCDField
+      FieldName = 'VLPRODUTO'
+      Required = True
+      DisplayFormat = '0.00'
+      Precision = 15
+      Size = 2
+    end
+    object sdItensVLTOTALPRODUTO: TFMTBCDField
+      FieldName = 'VLTOTALPRODUTO'
+      Required = True
+      Precision = 15
+      Size = 2
+    end
+  end
+  object DataSourceItens: TDataSource
+    DataSet = sdItens
+    Left = 240
+    Top = 512
+  end
+  object DataSourcePesquisa: TDataSource
+    DataSet = sdPesquisa
+    Left = 240
+    Top = 584
+  end
+  object sdPesquisa: TSimpleDataSet
+    Aggregates = <>
+    Connection = SQLConnection1
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <>
+    Params = <>
+    Left = 72
+    Top = 584
+  end
+  object sdItensTemp: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    MasterSource = DataSourceItens
+    PacketRecords = 0
+    Params = <>
+    AfterDelete = sdItensTempAfterDelete
+    Left = 80
+    Top = 656
+    object sdItensTempnrItem: TIntegerField
+      FieldName = 'nrItem'
+      KeyFields = 'nrItem'
+      EditFormat = '000'
+    end
+    object sdItensTempcdProduto: TIntegerField
+      FieldName = 'cdProduto'
+      KeyFields = 'cdProduto'
+    end
+    object sdItensTempqtde: TFloatField
+      FieldName = 'qtde'
+      KeyFields = 'qtde'
+    end
+    object sdItensTempvlProduto: TFloatField
+      FieldName = 'vlProduto'
+      KeyFields = 'vlProduto'
+      DisplayFormat = '0.00'
+    end
+    object sdItensTemptotalProduto: TFloatField
+      FieldName = 'totalProduto'
+      KeyFields = 'totalProduto'
+      DisplayFormat = '0.00'
+    end
+    object sdItensTempProduto: TStringField
+      FieldKind = fkLookup
+      FieldName = 'Produto'
+      LookupDataSet = sdProdutos
+      LookupKeyFields = 'CDPRODUTO'
+      LookupResultField = 'DCPRODUTO'
+      KeyFields = 'cdProduto'
+      Size = 50
+      Lookup = True
+    end
+    object sdItensTemptotalNota: TAggregateField
+      FieldName = 'totalNota'
+      Active = True
+      DisplayFormat = '0.00'
+      Expression = 'sum(totalProduto)'
+    end
+  end
+  object DataSourceItensTemp: TDataSource
+    DataSet = sdItensTemp
+    Left = 240
+    Top = 664
+  end
+end
